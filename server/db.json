@@ -1,60 +1,12 @@
 {
   "employees": [
     {
-      "id": "5dc9bdc68e268a789771e9da",
       "isActive": false,
-      "age": 30,
-      "name": "Trudy Bauer",
-      "company": "COMTEXT",
-      "email": "trudybauer@comtext.com"
-    },
-    {
-      "id": "5dc9bdc6b62ea8498f1e2da4",
-      "isActive": true,
-      "age": 39,
-      "name": "Raquel Walter",
-      "company": "PROSURE",
-      "email": "raquelwalter@prosure.com"
-    },
-    {
-      "isActive": true,
-      "age": 14,
-      "name": "sm",
-      "company": "smCOMPANY",
-      "email": "sm@mini.pl",
-      "id": "FRS8PgB"
-    },
-    {
-      "isActive": true,
-      "age": 14,
-      "name": "Szymon",
-      "company": "AOIISJD",
-      "email": "as@ASD.pl",
-      "id": "6cvhb0p"
-    },
-    {
-      "isActive": true,
-      "age": 15,
-      "name": "as",
+      "age": 100,
+      "name": "dum",
       "company": "asd",
-      "email": "asdd",
-      "id": "-nDKRqz"
-    },
-    {
-      "isActive": true,
-      "age": 166,
-      "name": "",
-      "company": "",
-      "email": "",
-      "id": "xKi5qi_"
-    },
-    {
-      "isActive": true,
-      "age": 15,
-      "name": "asd",
-      "company": "d",
-      "email": "d",
-      "id": "_uot6sZ"
+      "email": "sad@as",
+      "id": 2
     }
   ]
 }

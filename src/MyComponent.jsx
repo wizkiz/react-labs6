@@ -8,7 +8,9 @@ export default class MyComponent extends React.Component {
             employees: null,
 			isLoading: false,
 			isSaving: false,
-			isFormActive: false
+			showList: false,
+			isFormActive: false,
+			index: null,
         }
     }
 
@@ -76,6 +78,19 @@ export default class MyComponent extends React.Component {
         event.preventDefault();
         this.setState({isFormActive: false});
 	}
+	
+	handlerDeleteEmployee = (id) => {
+		console.log(id);
+		this.setState({
+			index: id,
+		})
+		fetch(`http://localhost:3004/employees/${id}`, {
+			method: "delete"
+		})
+			.then(response => response.json())
+			.then(() => this.setState({index: null}))
+            .then(() => this.reloadEmployees());
+	}
 
     render() {
 		console.log("render");
@@ -123,11 +138,24 @@ export default class MyComponent extends React.Component {
 
         if(this.state.employees) {
 
+			const listEmployees = (
+				<div>
+					{this.state.employees.map(item => (
+						this.state.index === item.id ? <ul key={item.id}>Deleting...</ul> :
+						<ul key={item.id}>
+							<p>{item.name}, Aged: {item.age}, working in: {item.company}, email: {item.email}, active: {item.isActive.toString()}
+							<button onClick={() => {this.handlerDeleteEmployee(item.id)}}>Delete</button></p>
+						</ul>
+					))}	
+					<button onClick={() => this.setState({showList: false})}>Hide employees</button>
+				</div>	
+			)
 
             return (
                 <div>
                     <p>Data loaded, {this.state.employees.length} employees fetched</p>
 					{this.state.isFormActive ? addEmployeeForm : addEmployeeButton}
+					{this.state.showList ? listEmployees : <button onClick={() => this.setState({showList: true})}>Show employees</button>}
                 </div>
             )
         }
