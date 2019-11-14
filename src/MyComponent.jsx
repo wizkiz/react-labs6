@@ -6,12 +6,17 @@ export default class MyComponent extends React.Component {
         super(props);
         this.state = {
             employees: null,
-            isLoading: false,
+			isLoading: false,
+			isSaving: false
         }
     }
 
     componentDidMount() {
-        this.setState({
+        this.reloadEmployees();
+	}
+	
+	reloadEmployees() {
+		this.setState({
             isLoading: true
         });
 
@@ -19,7 +24,7 @@ export default class MyComponent extends React.Component {
             .then(response => response.json())
             .then(data => this.setState({employees: data}))
             .then(() => this.setState({isLoading: false}));
-    }
+	}
 
     handlerAddEmployeeButton = () => {
 
@@ -32,8 +37,37 @@ export default class MyComponent extends React.Component {
     }
 
     handlerFormSubmit = (event) => {
+		
+		event.preventDefault();
+		const data = new FormData(event.target);
 
-        event.preventDefault();
+		if( !Number(data.get("age"))) {
+			console.log("age is not a number");
+			return;
+		}
+		else if( data.get("isActive") != "true" && data.get("isActive") != "false") {
+			console.log("isActive is not bool");
+			return;
+		}
+
+		this.setState({
+			isSaving: true
+		})
+		
+		fetch('http://localhost:3004/employees', {
+			method: "post",
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				isActive: data.get("isActive")==="true" ? true : false,
+				age: Number(data.get("age")),
+				name: data.get("name"),
+				company: data.get("company"),
+				email: data.get("email")
+			})
+		})
+			.then(response => response.json())
+			.then(this.setState({isSaving: false}))
+			.then(this.reloadEmployees());
     }
 
     handlerFormReset = (event) =>{
@@ -52,25 +86,25 @@ export default class MyComponent extends React.Component {
             <div>
                 <form onSubmit={this.handlerFormSubmit} onReset={this.handlerFormReset}>
                     <h1>Add an employee</h1>
-                    <p><label>
-                        Name:
-                        <input/>
+					<p><label>
+                        IsActive: 
+                        <input name="isActive"/>
+                    </label></p>
+					<p><label>
+                        Age: 
+                        <input name="age"/>
                     </label></p>
                     <p><label>
-                        Age: 
-                        <input/>
+                        Name:
+                        <input name="name"/>
                     </label></p>
                     <p><label>
                         Company: 
-                        <input/>
+                        <input name="company"/>
                     </label></p>
                     <p><label>
                         Email: 
-                        <input/>
-                    </label></p>
-                    <p><label>
-                        IsActive: 
-                        <input/>
+                        <input name="email"/>
                     </label></p>
                     <p><input type="submit"/></p>
                     <p><input type="reset"/></p>
@@ -78,9 +112,13 @@ export default class MyComponent extends React.Component {
             </div>
         )
 
+		if(this.state.isSaving) {
+			return <p>Saving...</p>
+		}
+
         if(this.state.isLoading) {
             return <p>Loading...</p>
-        }
+		}
 
         if(this.state.employees) {
             return (
