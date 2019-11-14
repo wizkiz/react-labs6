@@ -1,7 +1,8 @@
 import React from 'react'
+import MyComponent from './MyComponent'
 
 const App = () => (
-  <h1>Minimal React</h1>  
+  <MyComponent/> 
 )
 
 export default App

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js --open",
     "build": "webpack --config webpack.config.prod.js",
-    "mockserver": "json-server server/db.json --port 3004"
+    "mockserver": "json-server server/db.json --port 3004 --delay 2000"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
