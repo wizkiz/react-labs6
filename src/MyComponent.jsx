@@ -93,7 +93,7 @@ export default class MyComponent extends React.Component {
 	}
 
     render() {
-		console.log("render");
+		//console.log("render");
         const addEmployeeButton = (
             <p><button onClick={this.handlerAddEmployeeButton}>Add employee</button></p>
         )
@@ -132,6 +132,13 @@ export default class MyComponent extends React.Component {
 		// 	return <p>Saving...</p>
 		// }
 
+		const noEmployees = (
+			<div>
+				<p>No employees</p>
+				<button onClick={() => this.setState({showList: false})}>Hide employees</button>
+			</div>
+		)
+
         if(this.state.isLoading) {
         	return <p>Loading...</p>
 		}
@@ -139,6 +146,7 @@ export default class MyComponent extends React.Component {
         if(this.state.employees) {
 
 			const listEmployees = (
+				this.state.employees.length===0 ? noEmployees :
 				<div>
 					{this.state.employees.map(item => (
 						this.state.index === item.id ? <ul key={item.id}>Deleting...</ul> :
