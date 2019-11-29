@@ -1,12 +1,3 @@
 {
-  "employees": [
-    {
-      "isActive": false,
-      "age": 100,
-      "name": "dum",
-      "company": "asd",
-      "email": "sad@as",
-      "id": 2
-    }
-  ]
+  "employees": []
 }
