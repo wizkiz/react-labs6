@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 
 class PageEmployees extends React.Component {
     constructor(props) {
@@ -40,12 +40,13 @@ class PageEmployees extends React.Component {
 	}
     
     render () {
-        
+
         if(this.state.isLoading) {
         	return <p>Loading...</p>
 		}
 
         if(this.state.employees) {
+
 			const listEmployees = (
 				this.state.employees.length === 0 ? <div>No employees</div> :
 				<div>
@@ -55,14 +56,18 @@ class PageEmployees extends React.Component {
 							<p>{item.name}, Aged: {item.age}, working in: {item.company}, email: {item.email}, active: {item.isActive.toString()}
 							<button onClick={() => this.handlerDeleteEmployee(item.id)}>Delete</button></p>
 						</ul>
-					))}		
+					))}	
+					
 				</div>	
 			)
 
             return (
                 <div>
                     <p>Data loaded, {this.state.employees.length} employees fetched</p>
-                    {listEmployees}
+					{listEmployees}
+                    <Link to="/new">
+                        <button style={{marginTop: "1em"}}>Add new employee</button>
+                    </Link>
                 </div>
             )
         }   

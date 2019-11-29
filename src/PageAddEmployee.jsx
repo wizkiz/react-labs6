@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 
 class PageAddEmployee extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ class PageAddEmployee extends React.Component {
         const addEmployeeForm = (
 			this.state.isSaving ? <p>Saving...</p> :
             <div>
-                <form onSubmit={this.handlerFormSubmit}>
+                <form onSubmit={this.handlerFormSubmit} onReset={() => this.props.history.push("/")}>
                     <h1>Add an employee</h1>
 					<p><label>
                         IsActive: 
@@ -67,7 +68,7 @@ class PageAddEmployee extends React.Component {
                         Email: 
                         <input name="email"/>
                     </label></p>
-                    <p><input type="submit" value="Submit"/> <input type="reset" value="Cancel"/></p>
+                    <p><input type="submit" value="Submit"/> <input type="reset" value="Back"/></p>
                 </form>
             </div>
 		)
@@ -80,4 +81,4 @@ class PageAddEmployee extends React.Component {
     }
 }
 
-export default PageAddEmployee
+export default withRouter(PageAddEmployee)
