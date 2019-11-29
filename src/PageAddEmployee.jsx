@@ -39,7 +39,8 @@ class PageAddEmployee extends React.Component {
 			})
 		})
 			.then(response => response.json())
-            .then(() => this.setState({isSaving: false}));
+            .then(() => this.setState({isSaving: false}))
+            .then(() => this.props.history.push("/"));
     }
 
     render () {
